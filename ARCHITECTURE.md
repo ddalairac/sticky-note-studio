@@ -1,3 +1,5 @@
+[< Back to Readme](./README.md)
+
 # Sticky Notes — Architecture
 
 The app is a single React + TypeScript page (TanStack Start/Vite, rendered client-only) with no UI component
@@ -23,7 +25,3 @@ shows when it is large enough), or double-click to create a default-sized note. 
 and drag the bottom-right corner to resize it. Drop a note on the trash zone (which highlights during the drag)
 to delete it. Clicking a note brings it to the front, a dot in the header cycles its colour, and text is saved
 when the note loses focus.
-
-## Running
-
-`bun install && bun run dev` (or `npm`). Tests: `bunx vitest run`. Production build: `bun run build`.
