@@ -122,10 +122,13 @@ export const StickyNote = memo(function StickyNote({
         />
       </header>
       <textarea
+        id={`note-text-${note.id}`}
+        name={`note-text-${note.id}`}
         className="note__text"
         value={text}
         placeholder="Write something…"
         aria-label="Note text"
+        autoComplete="off"
         onChange={(e) => setText(e.target.value)}
         onBlur={() => text !== note.text && onChange(note.id, { text })}
       />
