@@ -7,15 +7,15 @@ export interface PointerTrackHandlers {
   onEnd: (delta: Point, event: PointerEvent | null, cancelled: boolean) => void;
 }
 
-/**
- * Tracks a single pointer gesture started by `start`. Listeners live on window so the
- * gesture keeps working when the cursor leaves the element, and are removed on finish.
- */
 /** Gestures call preventDefault (no text selection), which also stops focus moving; blur manually so edits commit. */
 export function blurActiveElement(): void {
   if (document.activeElement instanceof HTMLElement) document.activeElement.blur();
 }
 
+/**
+ * Tracks a single pointer gesture started by `start`. Listeners live on window so the
+ * gesture keeps working when the cursor leaves the element, and are removed on finish.
+ */
 export function trackPointer(
   start: { clientX: number; clientY: number; pointerId: number },
   handlers: PointerTrackHandlers,

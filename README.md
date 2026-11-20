@@ -11,7 +11,7 @@ There is no UI component library. Domain logic (types, geometry, pointer trackin
 ## Docs
 
 - [BRIEF.md](./BRIEF.md) — the original task: required features, system requirements, and optional bonuses.
-- [ARCHITECTURE.md](./ARCHITECTURE.md) — how the app is structured, how dragging stays fast, and how persistence is isolated behind `NotesApi`.
+- [ARCHITECTURE.md](./ARCHITECTURE.md) — module map, data flow, gesture performance, the `NotesApi` persistence boundary, design decisions, known limitations, and how each BRIEF requirement is covered.
 
 ## Run locally
 
