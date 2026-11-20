@@ -2,8 +2,8 @@
 
 # Sticky Notes — Architecture
 
-The app is a single React + TypeScript page (TanStack Start/Vite, rendered client-only) with no UI component
-libraries. Code is split into a framework-free domain layer in `src/notes/` and presentational components in
+The app is a single-page React + TypeScript application built with Vite (a static client-side bundle, deployable
+to GitHub Pages) with no UI component libraries. Code is split into a framework-free domain layer in `src/notes/` and presentational components in
 `src/components/`. The domain layer holds the `Note`/`Rect` types, pure geometry helpers (normalising a drawn
 rectangle, clamping moves and resizes to the board and to a minimum size, hit-testing), a tiny `trackPointer`
 utility that follows one pointer gesture via window listeners (Escape/pointercancel abort it), a reducer for the

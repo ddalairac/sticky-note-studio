@@ -31,5 +31,9 @@ Other scripts:
 | `npm test`           | Run the test suite once            |
 | `npm run test:watch` | Re-run tests on change             |
 | `npm run lint`       | Lint the project                   |
-| `npm run build`      | Production build                   |
+| `npm run build`      | Production build into `dist/`      |
 | `npm run preview`    | Serve the production build locally |
+
+## Deploy
+
+The build is a static site. Pushing to `main` runs `.github/workflows/deploy.yml`, which lints, tests, builds and publishes `dist/` to GitHub Pages. Enable it once under **Settings → Pages → Source: GitHub Actions**.
