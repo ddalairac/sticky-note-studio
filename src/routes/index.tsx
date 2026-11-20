@@ -1,23 +1,21 @@
 import { createFileRoute } from "@tanstack/react-router";
+import { Board } from "@/components/Board";
+import { createMockNotesApi } from "@/notes/notesApi";
 
-// The home route ships no og:image, so serve-time hosting can inject the
-// project's social preview (explicit og:image or latest screenshot).
+// The route renders client-only; the server-side module copy gets no storage.
+const api = createMockNotesApi(typeof window === "undefined" ? undefined : window.localStorage);
+
 export const Route = createFileRoute("/")({
-  component: Index,
+  head: () => ({
+    meta: [
+      { title: "Pinboard — Sticky Notes" },
+      { name: "description", content: "Draw, move, resize and trash sticky notes on a cork board." },
+      { property: "og:title", content: "Pinboard — Sticky Notes" },
+      { property: "og:description", content: "Draw, move, resize and trash sticky notes on a cork board." },
+      { property: "og:type", content: "website" },
+      { name: "twitter:card", content: "summary_large_image" },
+    ],
+  }),
+  ssr: false,
+  component: () => <Board api={api} />,
 });
-
-// IMPORTANT: Replace this placeholder. See ./README.md for routing conventions.
-function Index() {
-  return (
-    <div
-      className="flex min-h-screen items-center justify-center"
-      style={{ backgroundColor: "#fcfbf8" }}
-    >
-      <img
-        data-lovable-blank-page-placeholder="REMOVE_THIS"
-        src="https://cdn.gpteng.co/blank-app-v1.svg"
-        alt="Your app will live here!"
-      />
-    </div>
-  );
-}

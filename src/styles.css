@@ -153,3 +153,111 @@
     color: var(--color-foreground);
   }
 }
+
+/* ---------- Pinboard design system ---------- */
+:root {
+  --board: oklch(0.72 0.07 65);
+  --board-dot: oklch(0.62 0.07 60);
+  --ink: oklch(0.25 0.03 60);
+  --panel: oklch(0.98 0.01 85 / 0.92);
+  --note-yellow: oklch(0.93 0.13 98);
+  --note-pink: oklch(0.86 0.09 5);
+  --note-blue: oklch(0.86 0.07 230);
+  --note-green: oklch(0.88 0.1 145);
+  --danger: oklch(0.58 0.2 27);
+  --danger-foreground: oklch(0.98 0.01 85);
+  --shadow-note: 0 1px 1px oklch(0.2 0.03 60 / 0.15), 0 8px 18px -6px oklch(0.2 0.03 60 / 0.4);
+  --shadow-lift: 0 2px 2px oklch(0.2 0.03 60 / 0.15), 0 22px 38px -10px oklch(0.2 0.03 60 / 0.55);
+  --font-ui: "Space Grotesk", system-ui, sans-serif;
+  --font-note: "Kalam", "Comic Sans MS", cursive;
+}
+
+@layer components {
+  body { font-family: var(--font-ui); color: var(--ink); }
+
+  .board {
+    position: fixed; inset: 0; overflow: hidden; min-width: 1024px; min-height: 768px;
+    background-color: var(--board);
+    background-image: radial-gradient(var(--board-dot) 1px, transparent 1.5px);
+    background-size: 14px 14px;
+    cursor: crosshair; user-select: none; touch-action: none;
+  }
+
+  .toolbar {
+    position: absolute; top: 16px; left: 16px; z-index: 100000;
+    display: flex; align-items: center; gap: 16px; padding: 10px 16px;
+    background: var(--panel); border-radius: 14px; box-shadow: var(--shadow-note); cursor: default;
+  }
+  .toolbar__title { font-family: var(--font-note); font-weight: 700; font-size: 1.5rem; line-height: 1; }
+  .toolbar__swatches { display: flex; gap: 6px; }
+  .toolbar__hint { font-size: 0.8rem; opacity: 0.7; }
+
+  .swatch {
+    width: 22px; height: 22px; border-radius: 999px; background: var(--note-bg);
+    border: 2px solid transparent; cursor: pointer; transition: transform 0.12s;
+  }
+  .swatch:hover { transform: scale(1.12); }
+  .swatch[aria-checked="true"] { border-color: var(--ink); }
+
+  [data-color="yellow"] { --note-bg: var(--note-yellow); }
+  [data-color="pink"] { --note-bg: var(--note-pink); }
+  [data-color="blue"] { --note-bg: var(--note-blue); }
+  [data-color="green"] { --note-bg: var(--note-green); }
+
+  .note {
+    position: absolute; display: flex; flex-direction: column;
+    background: var(--note-bg); border-radius: 3px 3px 14px 3px; box-shadow: var(--shadow-note);
+    cursor: default; transition: box-shadow 0.15s, opacity 0.15s, transform 0.15s;
+  }
+  .note[data-gesture] { box-shadow: var(--shadow-lift); }
+  .note[data-gesture="move"] { transform: rotate(-1.2deg); }
+  .note[data-over-trash] { opacity: 0.55; transform: scale(0.92) rotate(-3deg); }
+
+  .note__header {
+    flex: none; height: 26px; display: flex; align-items: center; justify-content: space-between;
+    padding: 0 8px; cursor: grab; background: oklch(0 0 0 / 0.05); border-radius: 3px 3px 0 0;
+  }
+  .note[data-gesture="move"] .note__header { cursor: grabbing; }
+  .note__grip { width: 28px; height: 6px; border-block: 2px dotted oklch(0 0 0 / 0.25); }
+  .note__color {
+    width: 14px; height: 14px; border-radius: 999px; cursor: pointer;
+    background: conic-gradient(var(--note-yellow) 0 25%, var(--note-pink) 0 50%, var(--note-blue) 0 75%, var(--note-green) 0);
+    border: 1px solid oklch(0 0 0 / 0.25);
+  }
+  .note__text {
+    flex: 1; resize: none; border: 0; outline: 0; background: transparent; padding: 8px 12px 16px;
+    font-family: var(--font-note); font-size: 1.1rem; line-height: 1.35; color: var(--ink); user-select: text;
+  }
+  .note__text::placeholder { color: oklch(0.25 0.03 60 / 0.4); }
+  .note__resize {
+    position: absolute; right: 0; bottom: 0; width: 18px; height: 18px; cursor: nwse-resize;
+    background: linear-gradient(135deg, transparent 50%, oklch(0 0 0 / 0.18) 50%); border-radius: 0 0 14px 0;
+  }
+
+  .draft {
+    position: absolute; pointer-events: none; z-index: 99999;
+    background: color-mix(in oklab, var(--note-bg) 45%, transparent);
+    border: 2px dashed oklch(0.25 0.03 60 / 0.35); border-radius: 3px;
+  }
+  .draft[data-valid] { border-color: var(--ink); background: color-mix(in oklab, var(--note-bg) 80%, transparent); }
+
+  .trash {
+    position: absolute; right: 24px; bottom: 24px; z-index: 0; width: 150px; height: 110px;
+    display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 6px;
+    border: 2px dashed oklch(0.25 0.03 60 / 0.4); border-radius: 18px; font-size: 0.75rem;
+    background: var(--panel); opacity: 0.55; transition: all 0.15s; pointer-events: none;
+  }
+  .trash[data-visible] { opacity: 1; transform: scale(1.05); }
+  .trash[data-active] { background: var(--danger); color: var(--danger-foreground); border-color: var(--danger); transform: scale(1.15); }
+
+  .board__status, .board__empty {
+    position: absolute; inset: 0; display: grid; place-items: center; pointer-events: none;
+    font-family: var(--font-note); font-size: 1.8rem; color: oklch(0.25 0.03 60 / 0.55);
+  }
+  .toast {
+    position: absolute; left: 50%; bottom: 24px; transform: translateX(-50%); z-index: 100001;
+    display: flex; gap: 12px; align-items: center; padding: 10px 16px; border-radius: 12px;
+    background: var(--danger); color: var(--danger-foreground); cursor: default;
+  }
+  .toast button { text-decoration: underline; cursor: pointer; }
+}
