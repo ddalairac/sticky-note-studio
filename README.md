@@ -1,5 +1,7 @@
 # Sticky Note Studio
 
+[![View demo](https://img.shields.io/badge/View%20demo-live-2ea44f?style=for-the-badge)](https://ddalairac.github.io/sticky-note-studio/)
+
 ![Pinboard with sticky notes in yellow, pink, blue, and green](./screen.png)
 
 A single-page desktop app for sticky notes, built with React and TypeScript. Notes live on a board: draw one at any size and position, drag it, resize it from the corner, or drop it on the trash zone to delete it. Text, color, and stacking order are editable, and every change is persisted through an asynchronous mock of a REST API that stores notes in `localStorage` and restores them on load.
