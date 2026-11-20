@@ -55,7 +55,13 @@ export function useNotes(api: NotesApi) {
     const find = (id: string) => notesRef.current.find((n) => n.id === id);
     return {
       create: (rect, color) =>
-        commit({ ...rect, id: crypto.randomUUID(), text: "", color, z: topZ(notesRef.current) + 1 }),
+        commit({
+          ...rect,
+          id: crypto.randomUUID(),
+          text: "",
+          color,
+          z: topZ(notesRef.current) + 1,
+        }),
       update: (id, patch) => {
         const note = find(id);
         if (note) commit({ ...note, ...patch });
@@ -63,7 +69,8 @@ export function useNotes(api: NotesApi) {
       bringToFront: (id) => {
         const note = find(id);
         const top = topZ(notesRef.current);
-        const alreadyOnTop = note?.z === top && notesRef.current.filter((n) => n.z === top).length === 1;
+        const alreadyOnTop =
+          note?.z === top && notesRef.current.filter((n) => n.z === top).length === 1;
         if (note && !alreadyOnTop) commit({ ...note, z: top + 1 });
       },
       remove: (id) => {

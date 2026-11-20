@@ -25,7 +25,8 @@ export function Toolbar({ color, onColorChange, count }: ToolbarProps) {
         ))}
       </div>
       <p className="toolbar__hint">
-        Drag on the board to draw a note · double-click for a quick one · {count} {count === 1 ? "note" : "notes"}
+        Drag on the board to draw a note · double-click for a quick one · {count}{" "}
+        {count === 1 ? "note" : "notes"}
       </p>
     </div>
   );

@@ -1,5 +1,11 @@
 import { useCallback, useRef, useState, type MouseEvent, type PointerEvent } from "react";
-import { DEFAULT_NOTE_SIZE, clampPosition, containsPoint, isLargeEnough, rectFromPoints } from "@/notes/geometry";
+import {
+  DEFAULT_NOTE_SIZE,
+  clampPosition,
+  containsPoint,
+  isLargeEnough,
+  rectFromPoints,
+} from "@/notes/geometry";
 import type { NotesApi } from "@/notes/notesApi";
 import { blurActiveElement, trackPointer } from "@/notes/pointer";
 import type { NoteColor, Point, Rect, Size } from "@/notes/types";
@@ -64,7 +70,10 @@ export function Board({ api }: { api: NotesApi }) {
     if (e.target !== e.currentTarget) return;
     const p = toBoardPoint(e.clientX, e.clientY);
     actions.create(
-      clampPosition({ ...DEFAULT_NOTE_SIZE, x: p.x - DEFAULT_NOTE_SIZE.width / 2, y: p.y - 20 }, getBounds()),
+      clampPosition(
+        { ...DEFAULT_NOTE_SIZE, x: p.x - DEFAULT_NOTE_SIZE.width / 2, y: p.y - 20 },
+        getBounds(),
+      ),
       color,
     );
   };
@@ -104,7 +113,9 @@ export function Board({ api }: { api: NotesApi }) {
       {error && (
         <div className="toast" role="alert" onPointerDown={(e) => e.stopPropagation()}>
           {error}
-          <button type="button" onClick={actions.dismissError}>Dismiss</button>
+          <button type="button" onClick={actions.dismissError}>
+            Dismiss
+          </button>
         </div>
       )}
     </main>

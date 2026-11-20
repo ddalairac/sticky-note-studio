@@ -16,10 +16,16 @@ export function blurActiveElement(): void {
   if (document.activeElement instanceof HTMLElement) document.activeElement.blur();
 }
 
-export function trackPointer(start: { clientX: number; clientY: number; pointerId: number }, handlers: PointerTrackHandlers): void {
+export function trackPointer(
+  start: { clientX: number; clientY: number; pointerId: number },
+  handlers: PointerTrackHandlers,
+): void {
   const origin = { x: start.clientX, y: start.clientY };
   let last: Point = { x: 0, y: 0 };
-  const deltaOf = (e: PointerEvent): Point => ({ x: e.clientX - origin.x, y: e.clientY - origin.y });
+  const deltaOf = (e: PointerEvent): Point => ({
+    x: e.clientX - origin.x,
+    y: e.clientY - origin.y,
+  });
 
   const move = (e: PointerEvent) => {
     if (e.pointerId !== start.pointerId) return;

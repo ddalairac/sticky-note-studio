@@ -16,29 +16,31 @@ Along with the resulting source code, please submit a short description of the
 architecture (2-3 paragraphs), in English.
 Sticky Notes
 ------------
+
 Your task is to implement a single-page web application for sticky notes. You
 are required to implement at least 3 of the following 4 features:
+
 1. Create a new note of the specified size at the specified position.
 2. Change note size by dragging.
 3. Move a note by dragging.
 4. Remove a note by dragging it over a predefined "trash" zone.
-You are encouraged to think about the best UI for these features that is
-possible to implement in the specified timeframe.
-System requirements:
-1. The web application is intended to be used on desktop. Minimum screen
-resolution: 1024x768.
-2. The following browsers should be supported: latest versions of Google Chrome
-(Windows and Mac), Mozilla Firefox (all platforms), Microsoft Edge.
-Technologies:
-1. Language: Typescript.
-2. You should use React without stock components.
-The general idea is to avoid using readymade solutions, so that we can fully
-assess how you design and engineer solutions in the scope of a small task like
-this.
-3. If your project requires building, provide the necessary instructions.
-As a bonus, you can implement a few optional features:
-I. Entering/editing note text.
-II. Moving notes to front (in case of overlapping notes).
+   You are encouraged to think about the best UI for these features that is
+   possible to implement in the specified timeframe.
+   System requirements:
+5. The web application is intended to be used on desktop. Minimum screen
+   resolution: 1024x768.
+6. The following browsers should be supported: latest versions of Google Chrome
+   (Windows and Mac), Mozilla Firefox (all platforms), Microsoft Edge.
+   Technologies:
+7. Language: Typescript.
+8. You should use React without stock components.
+   The general idea is to avoid using readymade solutions, so that we can fully
+   assess how you design and engineer solutions in the scope of a small task like
+   this.
+9. If your project requires building, provide the necessary instructions.
+   As a bonus, you can implement a few optional features:
+   I. Entering/editing note text.
+   II. Moving notes to front (in case of overlapping notes).
 
 Hiring – Front-end developer: Sticky notes TS
 

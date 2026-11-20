@@ -25,4 +25,5 @@ to delete it. Clicking a note brings it to the front, a dot in the header cycles
 when the note loses focus.
 
 ## Running
+
 `bun install && bun run dev` (or `npm`). Tests: `bunx vitest run`. Production build: `bun run build`.

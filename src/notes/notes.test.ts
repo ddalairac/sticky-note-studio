@@ -4,17 +4,36 @@ import { createMockNotesApi } from "./notesApi";
 import { initialNotesState, notesReducer } from "./notesState";
 import type { Note } from "./types";
 
-const note: Note = { id: "a", x: 10, y: 10, width: 200, height: 150, text: "hi", color: "yellow", z: 1 };
+const note: Note = {
+  id: "a",
+  x: 10,
+  y: 10,
+  width: 200,
+  height: 150,
+  text: "hi",
+  color: "yellow",
+  z: 1,
+};
 
 describe("geometry", () => {
   it("builds a rect from points dragged in any direction", () => {
-    expect(rectFromPoints({ x: 300, y: 200 }, { x: 100, y: 50 })).toEqual({ x: 100, y: 50, width: 200, height: 150 });
+    expect(rectFromPoints({ x: 300, y: 200 }, { x: 100, y: 50 })).toEqual({
+      x: 100,
+      y: 50,
+      width: 200,
+      height: 150,
+    });
   });
   it("keeps a moved note inside the board", () => {
-    expect(clampPosition({ ...note, x: 950, y: -20 }, { width: 1024, height: 768 })).toMatchObject({ x: 824, y: 0 });
+    expect(clampPosition({ ...note, x: 950, y: -20 }, { width: 1024, height: 768 })).toMatchObject({
+      x: 824,
+      y: 0,
+    });
   });
   it("never resizes below the minimum size", () => {
-    expect(clampSize({ ...note, width: 5, height: 5 }, { width: 1024, height: 768 })).toMatchObject(MIN_NOTE_SIZE);
+    expect(clampSize({ ...note, width: 5, height: 5 }, { width: 1024, height: 768 })).toMatchObject(
+      MIN_NOTE_SIZE,
+    );
   });
 });
 

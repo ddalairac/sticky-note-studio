@@ -1,7 +1,14 @@
 import { memo, useEffect, useState, type PointerEvent as ReactPointerEvent } from "react";
 import { clampPosition, clampSize } from "@/notes/geometry";
 import { blurActiveElement, trackPointer } from "@/notes/pointer";
-import { NOTE_COLORS, type Note, type NotePatch, type Point, type Rect, type Size } from "@/notes/types";
+import {
+  NOTE_COLORS,
+  type Note,
+  type NotePatch,
+  type Point,
+  type Rect,
+  type Size,
+} from "@/notes/types";
 
 export interface StickyNoteProps {
   note: Note;
@@ -47,7 +54,10 @@ export const StickyNote = memo(function StickyNote({
     const compute = (d: Point): Rect =>
       kind === "move"
         ? clampPosition({ ...origin, x: origin.x + d.x, y: origin.y + d.y }, getBounds())
-        : clampSize({ ...origin, width: origin.width + d.x, height: origin.height + d.y }, getBounds());
+        : clampSize(
+            { ...origin, width: origin.width + d.x, height: origin.height + d.y },
+            getBounds(),
+          );
 
     setGesture(kind);
     trackPointer(e, {
@@ -70,7 +80,12 @@ export const StickyNote = memo(function StickyNote({
           return;
         }
         const next = compute(d);
-        if (next.x !== note.x || next.y !== note.y || next.width !== note.width || next.height !== note.height) {
+        if (
+          next.x !== note.x ||
+          next.y !== note.y ||
+          next.width !== note.width ||
+          next.height !== note.height
+        ) {
           onChange(note.id, next);
         }
       },
@@ -78,7 +93,8 @@ export const StickyNote = memo(function StickyNote({
   };
 
   const cycleColor = () => {
-    const next = NOTE_COLORS[(NOTE_COLORS.indexOf(note.color) + 1) % NOTE_COLORS.length] ?? note.color;
+    const next =
+      NOTE_COLORS[(NOTE_COLORS.indexOf(note.color) + 1) % NOTE_COLORS.length] ?? note.color;
     onChange(note.id, { color: next });
   };
 
@@ -113,7 +129,12 @@ export const StickyNote = memo(function StickyNote({
         onChange={(e) => setText(e.target.value)}
         onBlur={() => text !== note.text && onChange(note.id, { text })}
       />
-      <div className="note__resize" onPointerDown={startGesture("resize")} aria-label="Resize note" role="separator" />
+      <div
+        className="note__resize"
+        onPointerDown={startGesture("resize")}
+        aria-label="Resize note"
+        role="separator"
+      />
     </article>
   );
 });

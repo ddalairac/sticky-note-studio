@@ -40,15 +40,16 @@ export function createMockNotesApi(storage: Storage | undefined, latencyMs = 120
 
   const request = <T>(handler: () => T): Promise<T> => {
     const next = queue.then(
-      () => new Promise<T>((resolve, reject) => {
-        setTimeout(() => {
-          try {
-            resolve(handler());
-          } catch (e) {
-            reject(e instanceof Error ? e : new Error(String(e)));
-          }
-        }, latencyMs);
-      }),
+      () =>
+        new Promise<T>((resolve, reject) => {
+          setTimeout(() => {
+            try {
+              resolve(handler());
+            } catch (e) {
+              reject(e instanceof Error ? e : new Error(String(e)));
+            }
+          }, latencyMs);
+        }),
     );
     queue = next.catch(() => undefined);
     return next;
